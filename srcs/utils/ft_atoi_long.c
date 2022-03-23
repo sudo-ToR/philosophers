@@ -6,17 +6,17 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:43:23 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/23 15:48:15 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/23 21:14:29 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-double	ft_atoi_double(const char *nptr)
+long	ft_atoi_long(const char *nptr)
 {
 	int		i;
 	int		neg;
-	double	r;
+	long	r;
 
 	i = 0;
 	neg = 1;

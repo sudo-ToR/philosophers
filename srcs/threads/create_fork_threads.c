@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_fork_threads.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/23 22:13:51 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/23 18:18:24 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/23 19:33:39 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int		create_fork(t_global *global)
 {
-	t_global	global;
-
-	memset(&global, 0, sizeof(t_global));
-	if (ac < 5 || ac > 8)
+	int	i;
+	
+	global->fork = malloc(sizeof(t_fork *) * global->nb_philo);
+	if (!global->fork)
+		return (1);
+	i = 0;
+	while (i < global->nb_philo)
 	{
-		printf("Wong number of arguments \n");
-		return (1);
+		(global->fork)[i] = malloc(sizeof(t_fork));
+		if (!(global->fork)[i])
+			return (1);
+		((global->fork)[i])->id = i + 1;
+		if (pthread_mutex_init(&((global->fork)[i])->thread, NULL))
+			return (1);
+		i++;
 	}
-	if (parsing(&av[1], &global))
-		return (1);
-	printf("nb philo %d\ntime death %zu\ntime eat %zu\ntime sleep %zu\nnb time eat %d\n",
-		global.nb_philo, global.time_death, global.time_eat, global.time_sleep, global.nb_time_eat);
-	create_fork(&global);
-	create_philo(&global);
 	return (0);
 }

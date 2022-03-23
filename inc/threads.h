@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   threads.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 15:17:08 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/23 21:23:24 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/23 16:21:08 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/23 18:30:50 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#ifndef THREADS_H
 
-# define UTILS_H
-
-int		ft_atoi(const char *nptr);
-int		str_table_size(char **table);
-long	ft_atoi_long(const char *nptr);
-char	*ft_itoa(int n);
+# define  THREADS_H
 
 #endif
