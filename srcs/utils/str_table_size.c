@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   str_table_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/23 16:08:46 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/23 15:33:14 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/23 15:33:29 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int	str_table_size(char **table)
 {
-	t_philo	philo;
+	int	len;
 
-	memset(&philo, 0, sizeof(t_philo));
-	if (ac < 5 || ac > 8)
-	{
-		printf("Wong number of arguments \n");
-		return (1);
-	}
-	if (parsing(&av[1], &philo))
-		return (1);
-	printf("nb philo %d\ntime death %f\ntime eat %f\ntime sleep %f\nnb time eat %d\n",
-		philo.nb_philo, philo.time_death, philo.time_eat, philo.time_sleep, philo.nb_time_eat);
-	return (0);
+	len = 0;
+	if (!table)
+		return (len);
+	while (table[len])
+		len++;
+	return (len);
 }

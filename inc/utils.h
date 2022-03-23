@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/26 13:49:41 by tor               #+#    #+#             */
-/*   Updated: 2022/03/23 15:30:24 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/23 15:17:08 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/23 15:50:17 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
+#ifndef UTILS_H
 
-# define PHILO_H
+# define UTILS_H
 
-# include "parsing.h"
-# include "utils.h"
-# include <unistd.h>
-# include <string.h>
-
-typedef struct s_philo
-{
-	int		nb_philo;
-	int		nb_time_eat;
-	double	time_death;
-	double	time_eat;
-	double	time_sleep;
-}	t_philo;
-
-int		parsing(char **arg, t_philo *philo);
+int	ft_atoi(const char *nptr);
+int	str_table_size(char **table);
+double	ft_atoi_double(const char *nptr);
 
 #endif

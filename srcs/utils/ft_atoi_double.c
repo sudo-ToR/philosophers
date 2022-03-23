@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi_double.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/23 16:08:46 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/23 15:43:23 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/23 15:48:15 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+double	ft_atoi_double(const char *nptr)
 {
-	t_philo	philo;
+	int		i;
+	int		neg;
+	double	r;
 
-	memset(&philo, 0, sizeof(t_philo));
-	if (ac < 5 || ac > 8)
+	i = 0;
+	neg = 1;
+	r = 0;
+	while (nptr[i] == 32 || nptr[i] == '\f' || nptr[i] == '\n'
+		|| nptr[i] == '\r' || nptr[i] == '\t' || nptr[i] == '\v')
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		printf("Wong number of arguments \n");
-		return (1);
+		if (nptr[i] == '-')
+			neg *= -1;
+		i++;
 	}
-	if (parsing(&av[1], &philo))
-		return (1);
-	printf("nb philo %d\ntime death %f\ntime eat %f\ntime sleep %f\nnb time eat %d\n",
-		philo.nb_philo, philo.time_death, philo.time_eat, philo.time_sleep, philo.nb_time_eat);
-	return (0);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		r = 10 * r + (nptr[i] - '0');
+		i++;
+	}
+	return (neg * r);
 }

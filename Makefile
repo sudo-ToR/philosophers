@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tor <tor@student.42.fr>                    +#+  +:+       +#+         #
+#    By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/26 13:32:52 by tor               #+#    #+#              #
-#    Updated: 2021/12/26 13:59:12 by tor              ###   ########.fr        #
+#    Updated: 2022/03/23 16:06:57 by lnoirot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,39 @@ OBJ_PATH	=	obj/
 
 SRCS_PATH 		=	srcs/
 
-SRCS			= main.c
 
-OBJS	=	$(addprefix $(OBJ_PATH), $(SRCS:.c=.o))
+PARSING_PATH	=	parsing/
+UTILS_PATH	=	utils/
+
+PARSING_LIST	=	$(addprefix $(PARSING_PATH), \
+							parsing.c \
+						)
+
+UTILS_LIST	=	$(addprefix $(UTILS_PATH), \
+							ft_atoi.c \
+							ft_atoi_double.c \
+							str_table_size.c \
+						)
+
+SRCS_LIST	=	main.c \
+				$(PARSING_LIST) \
+				$(UTILS_LIST)
+
+SRCS			=	$(addprefix $(SRCS_PATH), \
+						main.c \
+						$(PARSING_LIST) \
+						$(UTILS_LST) \
+						)
+
+OBJS	=	$(addprefix $(OBJ_PATH), $(SRCS_LIST:.c=.o))
 
 $(OBJ_PATH)%.o:		$(SRCS_PATH)/%.c
+					@mkdir -p obj obj/parsing obj/utils
 					$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 DEPS	=	$(OBJS:.o=.d)
 
-all:
-			@mkdir -p obj
-			$(MAKE) ${NAME}
+all:	$(NAME)
 
 ${NAME}:	$(OBJS)
 		$(CC) $(OBJS) -o $(NAME)
