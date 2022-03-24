@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:20:46 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/24 22:32:20 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/24 22:44:29 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*test(void *arg)
 		else if (cast->last_action == EAT)
 			sleep_philo(cast);
 		else if (cast->last_action == SLEEP)
-			think_philo(cast, 5000);
+			think_philo(cast, 50);
 		cast->is_dead = have_starved(cast);
 	}
 		if (cast->is_dead)
@@ -118,17 +118,17 @@ void	eat_philo(t_philo *philo)
 	t_global *cast;
 
 	cast = philo->global;
-	pthread_mutex_lock(&(philo->available_fork)[0]);
+	pthread_mutex_lock((philo->available_fork)[0]);
 	access_display(cast, philo, FORK);
-	pthread_mutex_lock(&(philo->available_fork)[1]);
+	pthread_mutex_lock((philo->available_fork)[1]);
 	access_display(cast, philo, FORK);
 	access_display(cast, philo, EAT);
 	philo->last_meal = get_time_in_ms();
 	philo->nb_meal += 1;
 	philo->last_action = EAT;
 	wait_end_activity(cast->time_eat);
-	pthread_mutex_unlock(&(philo->available_fork)[0]);
-	pthread_mutex_unlock(&(philo->available_fork)[1]);	
+	pthread_mutex_unlock((philo->available_fork)[0]);
+	pthread_mutex_unlock((philo->available_fork)[1]);	
 }
 
 void	print_state_change(t_global *global, char *philo_id, int activity)
@@ -165,23 +165,15 @@ void	init_philo(t_philo **philo, int id, t_global *global)
 	(*philo)->str_id= ft_itoa((*philo)->id);
 	(*philo)->last_meal = -1;
 	(*philo)->is_dead = 0;
-	printf("id: %d\n", (*philo)->id);
 	if (id != global->nb_philo)
 	{
-		printf("NOT LAST, (%d, %d)\n", id - 1, id);
-		((*philo)->available_fork)[0] = ((global->fork)[id - 1])->thread;
-		((*philo)->available_fork)[1] = ((global->fork)[id])->thread;
+		((*philo)->available_fork)[0] = &((global->fork)[id - 1])->thread;
+		((*philo)->available_fork)[1] = &((global->fork)[id])->thread;
 	}
-	// else if (id == 1)
-	// {
-	// 	((*philo)->available_fork)[0] = ((global->fork)[id - 1])->thread;
-	// 	((*philo)->available_fork)[1] = ((global->fork)[global->nb_philo - 1])->thread;
-	// }
 	else
 	{
-		printf("LAST, (0, %d)\n", id - 1);
-		((*philo)->available_fork)[0] = ((global->fork)[0])->thread;
-		((*philo)->available_fork)[1] = ((global->fork)[id - 1])->thread;
+		((*philo)->available_fork)[0] = &((global->fork)[0])->thread;
+		((*philo)->available_fork)[1] = &((global->fork)[id - 1])->thread;
 	}
 }
 

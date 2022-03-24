@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:41 by tor               #+#    #+#             */
-/*   Updated: 2022/03/24 21:22:19 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/24 22:40:39 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 	int				id;
 	char			*str_id;
 	pthread_t 		thread;
-	pthread_mutex_t	available_fork[2];
+	pthread_mutex_t	*available_fork[2];
 	int				nb_meal;
 	long			last_meal;
 	int				is_dead;
