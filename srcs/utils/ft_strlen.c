@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 15:17:08 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/24 18:03:24 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/24 18:02:40 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/24 18:03:10 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#include "philo.h"
 
-# define UTILS_H
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
 
-int		ft_atoi(const char *nptr);
-int		str_table_size(char **table);
-long	ft_atoi_long(const char *nptr);
-char	*ft_itoa(int n);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
-
-#endif
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}

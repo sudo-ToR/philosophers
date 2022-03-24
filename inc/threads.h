@@ -6,12 +6,15 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:21:08 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/23 18:30:50 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:25:21 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef THREADS_H
 
 # define  THREADS_H
+
+
+void	wait_end_activity(long	time_to_wait);
 
 #endif

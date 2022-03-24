@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 15:17:08 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/24 18:03:24 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/24 17:57:09 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/24 17:57:31 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
+#include "philo.h" 
 
-# define UTILS_H
+char	*ft_strdup(const char *s)
+{
+	char	*cpy;
+	int		i;
 
-int		ft_atoi(const char *nptr);
-int		str_table_size(char **table);
-long	ft_atoi_long(const char *nptr);
-char	*ft_itoa(int n);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
-
-#endif
+	cpy = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (cpy == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		cpy[i] = s[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
+}

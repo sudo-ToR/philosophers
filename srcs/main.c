@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/23 22:13:51 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:48:27 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	main(int ac, char **av)
 	}
 	if (parsing(&av[1], &global))
 		return (1);
-	printf("nb philo %d\ntime death %zu\ntime eat %zu\ntime sleep %zu\nnb time eat %d\n",
-		global.nb_philo, global.time_death, global.time_eat, global.time_sleep, global.nb_time_eat);
 	create_fork(&global);
 	create_philo(&global);
+	while (!is_at_leat_one_philo_dead(&global))
+		continue;
 	return (0);
 }

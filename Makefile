@@ -6,7 +6,7 @@
 #    By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/26 13:32:52 by tor               #+#    #+#              #
-#    Updated: 2022/03/23 21:22:20 by lnoirot          ###   ########.fr        #
+#    Updated: 2022/03/24 18:03:17 by lnoirot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ UTILS_LIST	=	$(addprefix $(UTILS_PATH), \
 							ft_atoi_long.c \
 							str_table_size.c \
 							ft_itoa.c \
+							ft_strdup.c \
+							ft_strlen.c \
 						)
 
 THREADS_LIST	=	$(addprefix $(THREADS_PATH), \
