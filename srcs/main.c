@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/24 21:48:27 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/25 22:12:23 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	main(int ac, char **av)
 {
 	t_global	global;
+	int			i;
 
+	i = -1;
 	memset(&global, 0, sizeof(t_global));
-	if (ac < 5 || ac > 8)
+	if (ac != 5 && ac != 6)
 	{
 		printf("Wong number of arguments \n");
 		return (1);
@@ -26,7 +28,11 @@ int	main(int ac, char **av)
 		return (1);
 	create_fork(&global);
 	create_philo(&global);
-	while (!is_at_leat_one_philo_dead(&global))
-		continue;
+	while (!global.dead_philo && !each_phil_has_eat_enough(&global))
+		check_death(&global);
+	if (global.dead_philo)
+		death_philo(global.philo[global.dead_philo - 1]);
+	while (++i < global.nb_philo)
+		pthread_join((global.philo[i])->thread, NULL);
 	return (0);
 }

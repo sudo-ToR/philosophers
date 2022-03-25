@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:41 by tor               #+#    #+#             */
-/*   Updated: 2022/03/24 22:40:39 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/25 22:21:23 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include "parsing.h"
 # include "utils.h"
+# include "threads.h"
 # include <unistd.h>
 # include <string.h>
 # include <pthread.h>
@@ -32,22 +33,24 @@ typedef struct s_philo
 {
 	int				id;
 	char			*str_id;
-	pthread_t 		thread;
+	pthread_t		thread;
 	pthread_mutex_t	*available_fork[2];
+	pthread_mutex_t	meal;
+	pthread_mutex_t	death;
 	int				nb_meal;
 	long			last_meal;
+	pthread_mutex_t	meal_l;
 	int				is_dead;
 	void			*global;
+	pthread_mutex_t	action;
 	int				last_action;
-} t_philo;
+}	t_philo;
 
-
-typedef	struct s_fork
+typedef struct s_fork
 {
 	int					id;
-	pthread_mutex_t	thread;
+	pthread_mutex_t		thread;
 }	t_fork;
-
 
 typedef struct s_global
 {
@@ -57,9 +60,11 @@ typedef struct s_global
 	long			time_eat;
 	long			time_sleep;
 	long			start_time;
-	pthread_mutex_t display;
- 	t_fork			**fork;
+	pthread_mutex_t	display;
+	t_fork			**fork;
 	t_philo			**philo;
+	pthread_mutex_t	report_death;
+	int				dead_philo;
 }	t_global;
 
 int		parsing(char **arg, t_global *global);
@@ -73,5 +78,9 @@ void	eat_philo(t_philo *philo);
 void	sleep_philo(t_philo *philo);
 int		is_at_leat_one_philo_dead(t_global *global);
 void	think_philo(t_philo *philo, long time_to_sleep);
+int		have_starved(t_philo *philo);
+int		check_death(t_global *global);
+int		check_other_philo_mutex(t_global *global);
+int		each_phil_has_eat_enough(t_global *global);
 
 #endif

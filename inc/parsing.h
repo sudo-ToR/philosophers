@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:15:51 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/23 22:09:59 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/25 16:10:30 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 # include <stdio.h>
 
-
-long	get_time_in_ms();
+long	get_time_in_ms(void);
 
 #endif

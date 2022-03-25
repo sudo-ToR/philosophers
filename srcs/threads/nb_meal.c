@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_fork_threads.c                              :+:      :+:    :+:   */
+/*   nb_meal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 18:18:24 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/25 16:07:01 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/25 19:34:19 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/25 21:54:31 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	create_fork(t_global *global)
+int	check_with_mutex_meal(t_global *global, t_philo *philo)
+{
+	int	ret;
+
+	ret = 0;
+	pthread_mutex_lock(&philo->meal);
+	if (philo->nb_meal < global->nb_time_eat)
+		ret = 1;
+	pthread_mutex_unlock(&philo->meal);
+	return (ret);
+}
+
+int	each_phil_has_eat_enough(t_global *global)
 {
 	int	i;
 
-	global->fork = malloc(sizeof(t_fork *) * global->nb_philo);
-	if (!global->fork)
-		return (1);
 	i = 0;
-	while (i < global->nb_philo)
+	if (global->nb_time_eat < 0)
+		return (0);
+	while ((global->philo)[i] && i < global->nb_philo)
 	{
-		(global->fork)[i] = malloc(sizeof(t_fork));
-		if (!(global->fork)[i])
-			return (1);
-		((global->fork)[i])->id = i + 1;
-		if (pthread_mutex_init(&((global->fork)[i])->thread, NULL))
-			return (1);
+		if (check_with_mutex_meal(global, (global->philo)[i]))
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }

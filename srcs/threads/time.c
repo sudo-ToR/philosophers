@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_fork_threads.c                              :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 18:18:24 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/25 16:07:01 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/25 16:21:17 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/25 16:22:44 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	create_fork(t_global *global)
+long	get_time_stamp(t_global *global)
 {
-	int	i;
+	return (get_time_in_ms() - global->start_time);
+}
 
-	global->fork = malloc(sizeof(t_fork *) * global->nb_philo);
-	if (!global->fork)
-		return (1);
-	i = 0;
-	while (i < global->nb_philo)
+void	wait_end_activity(long time_to_wait)
+{
+	long	start;
+	long	in_progress;
+
+	in_progress = 0;
+	start = get_time_in_ms();
+	while (time_to_wait >= in_progress)
 	{
-		(global->fork)[i] = malloc(sizeof(t_fork));
-		if (!(global->fork)[i])
-			return (1);
-		((global->fork)[i])->id = i + 1;
-		if (pthread_mutex_init(&((global->fork)[i])->thread, NULL))
-			return (1);
-		i++;
+		usleep(50);
+		in_progress = (get_time_in_ms() - start) * 1000;
 	}
-	return (0);
 }

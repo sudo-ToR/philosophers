@@ -6,11 +6,11 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:31:37 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/23 15:46:43 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/25 16:09:36 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 int	ft_atoi(const char *nptr)
 {
