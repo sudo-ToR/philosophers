@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/30 22:07:15 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 22:16:14 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_global_dead_philo_mutex(t_global *global)
 	pthread_mutex_lock(&global->report_death);
 	if (global->dead_philo)
 	{
-		pthread_mutex_unlock(&global->report_death);	
+		pthread_mutex_unlock(&global->report_death);
 		death_philo((global->philo)[global->dead_philo - 1]);
 	}
 	else

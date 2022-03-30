@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:19:06 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/30 22:13:29 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 22:17:01 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,6 @@ void	eat_philo(t_philo *philo)
 	}
 }
 
-int	check_action_mutex(t_philo *philo)
-{
-	int	ret;
-
-	pthread_mutex_lock(&philo->action);
-	ret = philo->last_action;
-	pthread_mutex_unlock(&philo->action);
-	return (ret);
-}
-
-void	attribute_first_action(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->action);
-	if (philo->id % 2)
-		philo->last_action = THINK;
-	else
-		philo->last_action = SLEEP;
-	pthread_mutex_unlock(&philo->action);
-}
-
 void	*philosopher(void *arg)
 {
 	t_philo	*cast;
@@ -106,7 +86,7 @@ void	*philosopher(void *arg)
 	cast = arg;
 	if (((t_global *)(cast->global))->nb_philo == 1)
 		handle_single_philo(cast);
-	else 
+	else
 		attribute_first_action(cast);
 	while (!check_one_philo_death_mutex(cast)
 		&& !check_other_philo_mutex(cast->global)
