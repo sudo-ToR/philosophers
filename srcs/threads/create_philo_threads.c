@@ -6,11 +6,23 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:20:46 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/25 22:30:50 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 15:19:59 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	check_one_philo_death_mutex(t_philo *philo)
+{
+	int	ret;
+
+	ret = 0;
+	pthread_mutex_lock(&philo->death);
+	if (philo->is_dead)
+		ret = 1;
+	pthread_mutex_unlock(&philo->death);
+	return (ret);
+}
 
 void	init_philo(t_philo **philo, int id, t_global *global)
 {

@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:24:37 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/25 22:29:44 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 15:20:05 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,6 @@ int	check_other_philo_mutex(t_global *global)
 	return (ret);
 }
 
-
-int	check_one_philo_death_mutex(t_philo *philo)
-{
-	int	ret;
-
-	ret = 0;
-	pthread_mutex_lock(&philo->death);
-	if (philo->is_dead)
-		ret = 1;
-	pthread_mutex_unlock(&philo->death);
-	return (ret);
-}
-
 int	is_at_leat_one_philo_dead(t_global *global)
 {
 	int	i;
@@ -44,7 +31,8 @@ int	is_at_leat_one_philo_dead(t_global *global)
 	i = 0;
 	while (i < global->nb_philo)
 	{
-		if ((global->philo)[i] && check_one_philo_death_mutex((global->philo)[i]))
+		if ((global->philo)[i]
+			&& check_one_philo_death_mutex((global->philo)[i]))
 			return (1);
 		i++;
 	}
@@ -79,7 +67,7 @@ int	check_last_meal_mutex(t_philo *philo)
 
 	ret = 0;
 	pthread_mutex_lock(&philo->meal_l);
-	ret = philo->last_meal && get_time_in_ms()- philo->last_meal;
+	ret = get_time_in_ms() - philo->last_meal;
 	pthread_mutex_unlock(&philo->meal_l);
 	return (ret);
 }

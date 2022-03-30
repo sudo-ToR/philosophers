@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:41 by tor               #+#    #+#             */
-/*   Updated: 2022/03/25 22:21:23 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 15:20:29 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int		have_starved(t_philo *philo);
 int		check_death(t_global *global);
 int		check_other_philo_mutex(t_global *global);
 int		each_phil_has_eat_enough(t_global *global);
+int		check_one_philo_death_mutex(t_philo *philo);
 
 #endif
