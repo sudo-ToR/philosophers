@@ -6,11 +6,22 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:20:46 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/30 15:19:59 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 22:08:53 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	handle_single_philo(t_philo *philo)
+{
+	t_global	*cast;
+
+	cast = philo->global;
+	pthread_mutex_lock((philo->available_fork)[0]);
+	access_display(cast, philo, FORK);
+	pthread_mutex_unlock((philo->available_fork)[0]);
+	wait_end_activity(cast->time_death);
+}
 
 int	check_one_philo_death_mutex(t_philo *philo)
 {

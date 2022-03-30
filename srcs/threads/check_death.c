@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:24:37 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/30 15:20:05 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/30 18:39:56 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int	check_death(t_global *global)
 	{
 		if (have_starved((global->philo)[i]))
 		{
+			pthread_mutex_lock(&(global->philo)[i]->action);
 			(global->philo)[i]->last_action = DIE;
+			pthread_mutex_unlock(&(global->philo)[i]->action);
 			pthread_mutex_lock(&global->report_death);
 			global->dead_philo = i + 1;
 			pthread_mutex_lock(&(global->philo)[i]->death);
@@ -77,6 +79,9 @@ int	have_starved(t_philo *philo)
 	t_global	*cast;
 
 	cast = philo->global;
+	if (cast->nb_philo == 1
+		&& get_time_in_ms() - cast->start_time >= cast->time_death / 1000)
+		return (1);
 	if (check_last_meal_mutex (philo) > cast->time_death / 1000)
 		return (1);
 	return (0);
