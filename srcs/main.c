@@ -6,11 +6,27 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:36 by tor               #+#    #+#             */
-/*   Updated: 2022/03/30 22:16:14 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/04/02 14:20:58 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	free_struct_global(t_global *global)
+{
+	int	i;
+
+	i = 0;
+	while (i < global->nb_philo)
+	{
+		free((global->fork)[i]);
+		free((global->philo)[i]->str_id);
+		free((global->philo)[i]);
+		i++;
+	}
+	free(global->fork);
+	free(global->philo);
+}
 
 void	check_global_dead_philo_mutex(t_global *global)
 {
@@ -45,5 +61,6 @@ int	main(int ac, char **av)
 	check_global_dead_philo_mutex(&global);
 	while (++i < global.nb_philo)
 		pthread_join((global.philo[i])->thread, NULL);
+	free_struct_global(&global);
 	return (0);
 }
