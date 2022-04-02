@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 13:49:41 by tor               #+#    #+#             */
-/*   Updated: 2022/03/30 22:15:36 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/04/02 17:57:00 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_global
 	t_philo			**philo;
 	pthread_mutex_t	report_death;
 	int				dead_philo;
+	char			*state_print_str[5];
 }	t_global;
 
 int		parsing(char **arg, t_global *global);
@@ -73,12 +74,12 @@ int		create_philo(t_global *global);
 long	get_time_stamp(t_global *global);
 void	print_state_change(t_global *global, char *philo_id, int activity);
 void	access_display(t_global *global, t_philo *philo, int activity);
-void	death_philo(t_philo *philo);
-void	eat_philo(t_philo *philo);
-void	sleep_philo(t_philo *philo);
+void	death_philo(t_philo *philo, t_global *global);
+void	eat_philo(t_philo *philo, t_global *global);
+void	sleep_philo(t_philo *philo, t_global *global);
 int		is_at_leat_one_philo_dead(t_global *global);
-void	think_philo(t_philo *philo, long time_to_sleep);
-int		have_starved(t_philo *philo);
+void	think_philo(t_philo *philo, long time_to_sleep, t_global *global);
+int		have_starved(t_philo *philo, t_global *global);
 int		check_death(t_global *global);
 int		check_other_philo_mutex(t_global *global);
 int		each_phil_has_eat_enough(t_global *global);

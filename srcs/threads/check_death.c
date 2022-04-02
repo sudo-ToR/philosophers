@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:24:37 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/30 18:39:56 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/04/02 19:33:49 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_death(t_global *global)
 	i = -1;
 	while (++i < global->nb_philo)
 	{
-		if (have_starved((global->philo)[i]))
+		if (have_starved((global->philo)[i], global))
 		{
 			pthread_mutex_lock(&(global->philo)[i]->action);
 			(global->philo)[i]->last_action = DIE;
@@ -65,24 +65,23 @@ int	check_death(t_global *global)
 
 int	check_last_meal_mutex(t_philo *philo)
 {
-	int	ret;
+	long	ret;
 
 	ret = 0;
 	pthread_mutex_lock(&philo->meal_l);
-	ret = get_time_in_ms() - philo->last_meal;
+	if (philo->last_meal)
+		ret = get_time_in_us() - philo->last_meal;
 	pthread_mutex_unlock(&philo->meal_l);
 	return (ret);
 }
 
-int	have_starved(t_philo *philo)
+int	have_starved(t_philo *philo, t_global *global)
 {
-	t_global	*cast;
-
-	cast = philo->global;
-	if (cast->nb_philo == 1
-		&& get_time_in_ms() - cast->start_time >= cast->time_death / 1000)
+	if (global->nb_philo > 1
+		&& check_last_meal_mutex (philo) > global->time_death)
 		return (1);
-	if (check_last_meal_mutex (philo) > cast->time_death / 1000)
+	else if (global->nb_philo == 1
+		&& get_time_in_us() - global->start_time >= global->time_death)
 		return (1);
 	return (0);
 }
